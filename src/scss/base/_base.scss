@@ -1,0 +1,20 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: 0;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    background-color: $bgColor;
+}
+
+h1,h2,h3,h4,h5,h6, label{
+    color: $monoColor;
+    font-family: $primaryFont;
+}
+
+
