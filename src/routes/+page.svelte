@@ -97,7 +97,6 @@
         height: 100%;
         text-align: center;
         width: 100%;
-        padding: 25px;
         overflow: hidden;
 
         section {
@@ -110,6 +109,19 @@
             min-width: 300px;
             max-width: 500px;
             gap: 15px;
+            @include tablet{
+                min-width: 555px;
+                max-width: 725px;
+                gap: 25px;
+            }
+            @include laptop{
+                min-width: 725px;
+                max-width: 875px;
+            }
+            @include desktop{
+                min-width: 876px;
+                max-width: 1000px;
+            }
             .header {
                 display: flex;
                 justify-content: space-between;
@@ -117,8 +129,11 @@
                 padding: $primaryPadding;
                 background-color: $cardColor;
                 width: 100%;
+                @include tablet{
+                    height: 60px
+                }
                 input {
-                    width: 91%;
+                    width: 90%;
                     padding: 15px 13px;
                     background-color: transparent;
                     border: none;
@@ -126,10 +141,22 @@
                     color: white;
                     font-size: 1.4rem;
                     font-family: $primaryFont;
+                    @include tablet{
+                        width: 97%;
+                    }
+                    @include laptop{
+                        width: 100%;
+                    }
                 }
                 svg {
                     cursor: pointer;
                     transform: scale(1.3);
+                    @include tablet{
+                        transform: scale(1.5);
+                    }
+                    @include laptop{
+                        transform: scale(1.7);
+                    }
                 }
             }
             .settings {
@@ -139,6 +166,15 @@
                 gap: 20px;
                 background-color: $cardColor;
                 padding: $primaryPadding;
+                @include tablet{
+                    font-size: 17px;
+                }
+                @include laptop{
+                    font-size: 19px;
+                }
+                @include desktop{
+                    font-size: 22px;
+                }
             }
             .length {
                 display: flex;
@@ -146,6 +182,12 @@
                 width: 100%;
                 h1:last-of-type {
                     color: $primaryColor;
+                }
+                @include desktop{
+                    font-size: 1.24rem;
+                }
+                @include large{
+                    font-size: 1.4rem;
                 }
             }
             .range {
@@ -157,6 +199,12 @@
                         $primaryColor,
                         $primaryColor
                     );
+                    @include tablet{
+                        height: 15px;
+                    }
+                    @include laptop{
+                        height: 22px;
+                    }
 
                     &::-moz-range-thumb {
                         height: 20px;
@@ -166,6 +214,10 @@
                         cursor: ew-resize;
                         transition: background 0.4s ease-in-out;
                         background-size: 5% 100%;
+                        @include laptop{
+                            height: 23px;
+                            width: 23px;
+                        }
                         &:active {
                             background: black;
                         }
@@ -176,12 +228,24 @@
                 display: flex;
                 flex-direction: column;
                 gap: 10px;
+                @include tablet{
+                    gap: 15px;
+                }
+                @include laptop{
+                    gap: 18px;
+                }
             }
             .strength {
                 display: flex;
                 justify-content: space-around;
                 padding: 15px;
                 background-color: $bgColor;
+                @include tablet{
+                    padding: 18px;
+                }
+                @include laptop{
+                    padding: 20px;
+                }
                 h3:last-of-type {
                     &.Weak {
                         color: $dangerColor;
@@ -195,7 +259,10 @@
                 }
                 .color {
                     display: flex;
-                    gap: 6px;
+                    gap: 7px;
+                    @include tablet{
+                        gap: 9px;
+                    }
                     &.Weak {
                         span:first-child {
                             background-color: $dangerColor;
@@ -223,6 +290,12 @@
                     span {
                         border: 1px solid white;
                         padding: 0.15rem;
+                        @include tablet{
+                            padding: 0 .20rem;
+                        }
+                        @include laptop{
+                            padding: 0 .3rem;
+                        }
                     }
                 }
             }

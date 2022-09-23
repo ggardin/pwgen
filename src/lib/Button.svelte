@@ -14,6 +14,16 @@
                 outline: none;
                 cursor: pointer;
                 transition: all .45s ease-in-out;
+                @include tablet{
+                    height: 50px;
+                    font-size: 1.15rem;
+                    gap: 13px;
+                }
+                @include laptop{
+                    height: 75px;
+                    font-size: 1.3rem;
+                    gap: 20px;
+                }
                 &:hover{
                     background-color: transparent;
                     color: $primaryColor;
@@ -21,6 +31,14 @@
                     
                     svg{
                         stroke: $primaryColor;
+                    }
+                }
+                svg{
+                    @include tablet{
+                        transform: scale(1.3);
+                    }
+                    @include laptop{
+                        transform: scale(1.6);
                     }
                 }
             }

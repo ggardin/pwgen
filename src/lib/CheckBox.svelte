@@ -34,6 +34,6 @@
 </style>
 
 <div class="filterBox">
-    <input type="checkbox" {id} {checked} on:click={dispatchCheck}>
+    <input type="checkbox" {id} {checked} on:click={() => dispatchCheck}>
     <label for="{id}">{text}</label>
 </div>
