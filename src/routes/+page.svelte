@@ -3,80 +3,87 @@
     import Button from "$lib/Button.svelte";
     import CheckBox from "$lib/CheckBox.svelte";
     // Constants
-    import { boxes} from "../constants/checkboxes";
+    import { boxes } from "../constants/checkboxes";
     // Variables
-    let passwordLength = +5
-    let maxLength = +20
-    let minLength = +0
-    let passwordString = ""
-    $: passwordStrength = ""
-    $: console.log(passwordString)
+    let passwordLength = +0;
+    let maxLength = +20;
+    let minLength = +0;
+    let passwordString = "";
+    let passwordStrength = "";
+    $: console.log(backgroundSize);
     // Reactive Values //
-    $: backgroundSize =((passwordLength - maxLength) *100) / (maxLength - minLength) +`% 100%`;
-// this function is the framework for the getrandomLower, upper .etc, to reduce markup
-const getRandomFunc = (min: number, max: number) => {
-    return String.fromCharCode(Math.floor(Math.random() * min) + max)};
+    $: backgroundSize =
+        ((passwordLength - maxLength) * 100) / (maxLength - minLength) + 100;
+    // this function is the framework for the getrandomLower, upper .etc, to reduce markup
+    const getRandomFunc = (min: number, max: number) => {
+        return String.fromCharCode(Math.floor(Math.random() * min) + max);
+    };
 
-// this use the getrandomFunc to get a random character from the ascii table 
- const getRandomLower = () => String(getRandomFunc(26, 97));
- const getRandomUpper = () => String(getRandomFunc(26, 65));
- const getRandomNumber = () => parseInt(getRandomFunc(10, 48));
- const getRandomSymbol = () => {
-    const symbols = "!@#$%^&*(){}[]/,.";
-    return symbols[Math.floor(Math.random() * symbols.length)];
-};
+    // this uses the getrandomFunc to get a random character from the ascii table
+    const getRandomLower = () => getRandomFunc(26, 97);
+    const getRandomUpper = () => getRandomFunc(26, 65);
+    const getRandomNumber = () => parseInt(getRandomFunc(10, 48));
+    const getRandomSymbol = () => {
+        const symbols = "!@#$%^&*(){}[]/,.";
+        return symbols[Math.floor(Math.random() * symbols.length)];
+    };
     //this'll call the functions based on the checkbox values
     const randomFunc = {
         lower: getRandomLower,
         upper: getRandomUpper,
         number: getRandomNumber,
         symbol: getRandomSymbol,
-    }
-
- 
-
+    };
 
     let passwordGenerator = {
         // this'll remove and add a checked value to the checkbox
-        CheckBox(index: string){
-            boxes.find(box => { 
-                if(index === box.id){box.checked = !box.checked}
-             })
+        CheckBox(index: string) {
+            boxes.find((box) => {
+                if (index === box.id) {
+                    box.checked = !box.checked;
+                }
+            });
         },
         // this'll generate a password based on the checkbox values, and run the functions or not
-        generatePassword(upper:string, lower:string, number:number, symbol: any) {
+        generatePassword(
+            upper: string,
+            lower: string,
+            number: number,
+            symbol: any) {
             passwordString = "";
             // filter out unchecked types
-            const typesCount = boxes.filter(box => box.checked).length;
-            const typesArr = boxes.filter(box => box.checked).map(box => box.id);
+            const typesCount = boxes.filter((box) => box.checked).length;
+            const typesArr = boxes
+                .filter((box) => box.checked)
+                .map((box) => box.id);
             // don't run if nothing is checked or if the length is 0
-            if (typesCount === 0 || passwordLength === 0) {
+            if (typesCount === 0 || passwordLength <= 0) {
                 return "";
             }
             // loop over the length and call the generator function for each type
-            for(let i = 0; i < passwordLength; i += typesCount) {
-                typesArr.forEach(type => {
+            for (let i = 0; i < passwordLength -1; i += typesCount) {
+                typesArr.forEach((type) => {
                     const funcName = type;
                     passwordString += randomFunc[funcName]();
                 });
             }
-            this.passwordStrength()
+            this.passwordStrength();
         },
         // Determine the strength of the password
-        passwordStrength(){
-            if(passwordLength <= 5){
-                passwordStrength = "Weak"
-            } else if(passwordLength <= 10){
-                passwordStrength = "Medium"
-            } else if(passwordLength >= 11){
-                passwordStrength = "Strong"
+        passwordStrength() {
+            if (passwordLength <= 5) {
+                passwordStrength = "Weak";
+            } else if (passwordLength <= 10) {
+                passwordStrength = "Medium";
+            } else if (passwordLength >= 11) {
+                passwordStrength = "Strong";
             }
         },
         // copy to clipboard
-        copyToClipboard(){
-            navigator.clipboard.writeText(passwordString)
-        }
-    }
+        copyToClipboard() {
+            navigator.clipboard.writeText(passwordString);
+        },
+    };
 
     // SCSS DEFINITIONS //
     import "../scss/styles.scss";
@@ -87,10 +94,11 @@ const getRandomFunc = (min: number, max: number) => {
     main {
         display: flex;
         flex-direction: column;
-        height: 100vh;
+        height: 100%;
         text-align: center;
         width: 100%;
         padding: 25px;
+        overflow: hidden;
 
         section {
             display: flex;
@@ -144,6 +152,7 @@ const getRandomFunc = (min: number, max: number) => {
                 input[type="range"] {
                     width: 100%;
                     background-repeat: no-repeat;
+                    background-size: 0% 100%;
                     background-image: linear-gradient(
                         $primaryColor,
                         $primaryColor
@@ -173,23 +182,47 @@ const getRandomFunc = (min: number, max: number) => {
                 justify-content: space-around;
                 padding: 15px;
                 background-color: $bgColor;
+                h3:last-of-type {
+                    &.Weak {
+                        color: $dangerColor;
+                    }
+                    &.Medium {
+                        color: $warmColor;
+                    }
+                    &.Strong {
+                        color: $primaryColor;
+                    }
+                }
                 .color {
                     display: flex;
                     gap: 6px;
+                    &.Weak {
+                        span:first-child {
+                            background-color: $dangerColor;
+                        }
+                    }
+                    &.Medium {
+                        span:first-child {
+                            background-color: $warmColor;
+                        }
+                        span:nth-of-type(2) {
+                            background-color: $warmColor;
+                        }
+                    }
+                    &.Strong {
+                        span:first-child {
+                            background-color: $primaryColor;
+                        }
+                        span:nth-of-type(2) {
+                            background-color: $primaryColor;
+                        }
+                        span:nth-of-type(3) {
+                            background-color: $primaryColor;
+                        }
+                    }
                     span {
-                        border: 2px solid white;
-                        padding: 0.13rem;
-                    }
-                }
-                h3:last-of-type{
-                    &.Weak{
-                        color: $dangerColor;
-                    }
-                    &.Medium{
-                        color: $warmColor;
-                    }
-                    &.Strong{
-                        color: $primaryColor;
+                        border: 1px solid white;
+                        padding: 0.15rem;
                     }
                 }
             }
@@ -211,7 +244,7 @@ const getRandomFunc = (min: number, max: number) => {
                 <h1>{passwordLength}</h1>
             </div>
             <div class="range">
-                <input type="range" min={minLength} max={maxLength} style="background-size: {backgroundSize};" bind:value={passwordLength}>
+                <input type="range" min={minLength} max={maxLength} style="background-size: {backgroundSize}% 100%;" bind:value={passwordLength}>
             </div>
             <div class="filter">
                 {#each boxes as box, i (box.id)}
@@ -221,8 +254,7 @@ const getRandomFunc = (min: number, max: number) => {
             <div class="strength">
                 <h3>Strength</h3>
                 <h3 class="{passwordStrength}">{passwordStrength}</h3>
-                <div class="color">
-                    <span></span>
+                <div class="color {passwordStrength}">
                     <span></span>
                     <span></span>
                     <span></span>
