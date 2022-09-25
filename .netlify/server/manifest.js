@@ -3,7 +3,7 @@ export const manifest = {
 	assets: new Set(["icon-arrow-right.svg","icon-check.svg","icon-copy.svg"]),
 	mimeTypes: {".svg":"image/svg+xml"},
 	_: {
-		entry: {"file":"_app/immutable/start-927c9e43.js","imports":["_app/immutable/start-927c9e43.js","_app/immutable/chunks/index-a722e2f6.js","_app/immutable/chunks/singletons-3f449a4f.js"],"stylesheets":[]},
+		entry: {"file":"_app/immutable/start-10727bf4.js","imports":["_app/immutable/start-10727bf4.js","_app/immutable/chunks/index-a722e2f6.js","_app/immutable/chunks/singletons-207f3cf1.js"],"stylesheets":[]},
 		nodes: [
 			() => import('./nodes/0.js'),
 			() => import('./nodes/1.js'),

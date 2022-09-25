@@ -1,12 +1,6 @@
-
-
-
-
 export const boxes = [
-    {id: "upper", text: "Incude uppercase letters", checked: true},
-    {id: "lower", text: "Incude lowercase letters", checked: false},
-    {id: "number", text: "Incude numbers", checked: false},
-    {id: "symbol", text: "Incude symbols", checked: false},
+    {id: "upper", text: "Incudes uppercase letters", checked: false},
+    {id: "lower", text: "Incudes lowercase letters", checked: false},
+    {id: "number", text: "Incudes numbers", checked: false},
+    {id: "symbol", text: "Incudes symbols", checked: false},
 ]
-
-

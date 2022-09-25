@@ -1,5 +1,3 @@
-<script lang="ts">
-</script>
 <style lang="scss">
     @import "../scss/utils/index";
     button{

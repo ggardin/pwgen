@@ -30,7 +30,7 @@
         }
        svg{
             position: absolute;
-            transform: translateY(-21px);
+            transform: scale(.000000000005);
             transition: all .7s ease;
 
             path{
@@ -38,15 +38,15 @@
             }
         }
     .checkbox{
+        display: flex;
         width: 20px;
         height: 20px;
         border: 1px solid $primaryColor;
         border-radius: 5px;
-        display: flex;
         justify-content: center;
         align-items: center;
         cursor: pointer;
-        transition: all 1.25s ease;
+        transition: all 1s ease .3s;
         
         &:hover {
             background-color: $primaryColor;
@@ -57,8 +57,8 @@
             color: white;
             
             & svg{
-                transition: all .7s ease-in-out .2s;
-                transform: translateY(0) scale(1.5);
+                transition: all .7s ease-in-out .4s;
+                transform: scale(1.3);
             }
         }
     }    

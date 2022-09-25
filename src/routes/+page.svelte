@@ -5,26 +5,26 @@
     // Constants
     import { boxes } from "../constants/checkboxes";
     // Variables
-    $: passwordLength = 0;
-    $: maxLength = 20;
-    $: minLength = 0;
+    $: passwordLength = +2;
+    $: maxLength = +20;
+    $: minLength = +0;
     $: passwordString = "";
     $: passwordStrength = "";
     // Reactive Values //
     $: backgroundSize =
         ((passwordLength - maxLength) * 100) / (maxLength - minLength) + 100;
     // this function is the framework for the getrandomLower, upper .etc, to reduce markup
-    const getRandomFunc = (min: number, max: number) => {
+    const getRandomFunc = (min: any, max: any) => {
         return String.fromCharCode(Math.floor(Math.random() * min) + max);
     };
 
     // this uses the getrandomFunc to get a random character from the ascii table
     const getRandomLower = () => getRandomFunc(26, 97);
     const getRandomUpper = () => getRandomFunc(26, 65);
-    const getRandomNumber = () => parseInt(getRandomFunc(10, 48));
+    const getRandomNumber = () => getRandomFunc(10, 48);
     const getRandomSymbol = () => {
         const symbols = "!@#$%^&*(){}[]/,.";
-        return symbols[Math.floor(Math.random() * symbols.length)];
+        return String(symbols[Math.floor(Math.random() * symbols.length)]);
     };
     //this'll call the functions based on the checkbox values
     const randomFunc = {
@@ -47,29 +47,28 @@
         generatePassword(
             upper: string,
             lower: string,
-            number: number,
-            symbol: any) {
+            number: string,
+            symbol: string) {
+            console.clear()
             passwordString = "";
             // filter out unchecked types
             const typesCount = boxes.filter((box) => box.checked).length;
-            console.log(typesCount);
-            
-            const typesArr = boxes
-                .filter((box) => box.checked)
-                .map((box) => box.id);
+            const typesArr = boxes.filter((box) => box.checked).map((box) => box.id);
+                console.log(typesArr);
+                console.log(boxes);
+
+                
             // don't run if nothing is checked or if the length is 0
-            if (typesCount === 0 || passwordLength  === 0) {
+            if (typesCount < 1 || passwordLength  === 0) {
                 return "";
             }
             // loop over the length, call the function for each type that is checked and add the value to the password string
-            for (let i = 0; i <= passwordLength; i += typesCount) {
-                if(i >= passwordLength) {
-                    break;
-                }     
-                typesArr.forEach((type) => {
-                    const funcName = randomFunc[type];
+            for (let i = 0; i <= passwordLength - 1; i += typesCount) {   
+                typesArr.forEach(type => {
+                    const funcName = randomFunc[type]; 
                     passwordString += funcName();
-                });     
+                });   
+                passwordString = passwordString.slice(0, passwordLength);
             }
             this.passwordStrength();
         },
@@ -96,20 +95,18 @@
 <style lang="scss">
     @import "../scss/utils/index";
     main {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
+        @extend %flexCol;
+        @extend %h100;
         text-align: center;
-        width: 100%;
+        @extend %w100;
         overflow: hidden;
 
         section {
-            display: flex;
-            flex-direction: column;
+           @extend %flexCol;
             justify-content: center;
             align-items: center;
             margin: 0 auto;
-            height: 100%;
+            @extend %h100;
             min-width: 300px;
             max-width: 500px;
             gap: 15px;
@@ -127,12 +124,12 @@
                 max-width: 1000px;
             }
             .header {
-                display: flex;
+                @extend %flex;
                 justify-content: space-between;
                 align-items: center;
                 padding: $primaryPadding;
                 background-color: $cardColor;
-                width: 100%;
+                @extend %w100;
                 @include tablet{
                     height: 60px
                 }
@@ -164,9 +161,8 @@
                 }
             }
             .settings {
-                display: flex;
-                flex-direction: column;
-                width: 100%;
+                @extend %flexCol;
+                @extend %w100;
                 gap: 20px;
                 background-color: $cardColor;
                 padding: $primaryPadding;
@@ -181,9 +177,9 @@
                 }
             }
             .length {
-                display: flex;
+                @extend %flex;
                 justify-content: space-between;
-                width: 100%;
+                @extend %w100;
                 h1:last-of-type {
                     color: $primaryColor;
                 }
@@ -196,7 +192,7 @@
             }
             .range {
                 input[type="range"] {
-                    width: 100%;
+                    @extend %w100;
                     background-repeat: no-repeat;
                     background-size: 0% 100%;
                     background-image: linear-gradient(
@@ -229,8 +225,7 @@
                 }
             }
             .filter {
-                display: flex;
-                flex-direction: column;
+                @extend %flexCol;
                 gap: 10px;
                 @include tablet{
                     gap: 15px;
@@ -240,7 +235,7 @@
                 }
             }
             .strength {
-                display: flex;
+                @extend %flex;
                 justify-content: space-around;
                 padding: 15px;
                 background-color: $bgColor;
@@ -262,7 +257,7 @@
                     }
                 }
                 .color {
-                    display: flex;
+                    @extend %flex;
                     gap: 7px;
                     @include tablet{
                         gap: 9px;
@@ -273,21 +268,17 @@
                         }
                     }
                     &.Medium {
-                        span:first-child {
-                            background-color: $warmColor;
-                        }
+                        span:first-child,
                         span:nth-of-type(2) {
                             background-color: $warmColor;
                         }
                     }
                     &.Strong {
-                        span:first-child {
-                            background-color: $primaryColor;
-                        }
-                        span:nth-of-type(2) {
-                            background-color: $primaryColor;
-                        }
-                        span:nth-of-type(3) {
+                        span:first-child,
+                        span:nth-of-type(2),
+                        span:nth-of-type(3),
+                        span:nth-of-type(4)
+                         {
                             background-color: $primaryColor;
                         }
                     }
@@ -332,6 +323,7 @@
                 <h3>Strength</h3>
                 <h3 class="{passwordStrength}">{passwordStrength}</h3>
                 <div class="color {passwordStrength}">
+                    <span></span>
                     <span></span>
                     <span></span>
                     <span></span>
