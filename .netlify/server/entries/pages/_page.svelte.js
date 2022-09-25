@@ -11,7 +11,7 @@ const Button = create_ssr_component(($$result, $$props, $$bindings, slots) => {
 });
 const CheckBox_svelte_svelte_type_style_lang = "";
 const css$1 = {
-  code: ".filterBox.svelte-14jyd7g.svelte-14jyd7g{display:flex;justify-content:start;align-items:center;gap:15px}.filterBox.svelte-14jyd7g input[type=checkbox].svelte-14jyd7g{width:20px;height:20px}.filterBox.svelte-14jyd7g input[type=checkbox].svelte-14jyd7g:checked{color:pink}.filterBox.svelte-14jyd7g label.svelte-14jyd7g{color:white}",
+  code: ".filterBox.svelte-1slg6jg.svelte-1slg6jg{display:flex;justify-content:start;align-items:center;gap:15px;position:relative;overflow:hidden}.filterBox.svelte-1slg6jg input[type=checkbox].svelte-1slg6jg{position:absolute;opacity:0;width:0;height:0}.filterBox.svelte-1slg6jg svg.svelte-1slg6jg{position:absolute;transform:translateY(-21px);transition:all 0.7s ease}.filterBox.svelte-1slg6jg svg path.svelte-1slg6jg{stroke:black}.filterBox.svelte-1slg6jg .checkbox.svelte-1slg6jg{width:20px;height:20px;border:1px solid #a4ffaf;border-radius:5px;display:flex;justify-content:center;align-items:center;cursor:pointer;transition:all 1.25s ease}.filterBox.svelte-1slg6jg .checkbox.svelte-1slg6jg:hover{background-color:#a4ffaf}.filterBox.svelte-1slg6jg .checkbox.checked.svelte-1slg6jg{background-color:#a4ffaf;border:1px solid #a4ffaf;color:white}.filterBox.svelte-1slg6jg .checkbox.checked svg.svelte-1slg6jg{transition:all 0.7s ease-in-out 0.2s;transform:translateY(0) scale(1.5)}.filterBox.svelte-1slg6jg label.svelte-1slg6jg{color:white}",
   map: null
 };
 const CheckBox = create_ssr_component(($$result, $$props, $$bindings, slots) => {
@@ -26,14 +26,16 @@ const CheckBox = create_ssr_component(($$result, $$props, $$bindings, slots) => 
   if ($$props.text === void 0 && $$bindings.text && text !== void 0)
     $$bindings.text(text);
   $$result.css.add(css$1);
-  return `<div class="${"filterBox svelte-14jyd7g"}"><input type="${"checkbox"}"${add_attribute("id", id, 0)} ${checked ? "checked" : ""} class="${"svelte-14jyd7g"}">
-    <label${add_attribute("for", id, 0)} class="${"svelte-14jyd7g"}">${escape(text)}</label></div>`;
+  return `<div class="${"filterBox svelte-1slg6jg"}"><input type="${"checkbox"}"${add_attribute("id", id, 0)} class="${"svelte-1slg6jg"}">
+    <span class="${["checkbox svelte-1slg6jg", checked ? "checked" : ""].join(" ").trim()}"${add_attribute("id", id, 0)}><svg width="${"14"}" height="${"12"}" xmlns="${"http://www.w3.org/2000/svg"}" class="${"svelte-1slg6jg"}"><path stroke="${"#18171F"}" stroke-width="${"3"}" fill="${"none"}" d="${"M1 5.607 4.393 9l8-8"}" class="${"svelte-1slg6jg"}"></path></svg></span>
+    
+    <label${add_attribute("for", id, 0)} class="${"svelte-1slg6jg"}">${escape(text)}</label></div>`;
 });
 const boxes = [
   { id: "upper", text: "Incude uppercase letters", checked: true },
-  { id: "lower", text: "Incude lowercase letters", checked: true },
-  { id: "number", text: "Incude numbers", checked: true },
-  { id: "symbol", text: "Incude symbols", checked: true }
+  { id: "lower", text: "Incude lowercase letters", checked: false },
+  { id: "number", text: "Incude numbers", checked: false },
+  { id: "symbol", text: "Incude symbols", checked: false }
 ];
 const styles = "";
 const _page_svelte_svelte_type_style_lang = "";
@@ -42,17 +44,19 @@ const css = {
   map: null
 };
 const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  let passwordLength;
+  let maxLength;
+  let minLength;
+  let passwordString;
+  let passwordStrength;
   let backgroundSize;
-  let passwordLength = 0;
-  let maxLength = 20;
-  let minLength = 0;
-  let passwordString = "";
-  let passwordStrength = "";
   $$result.css.add(css);
+  passwordLength = 0;
+  maxLength = 20;
+  minLength = 0;
+  passwordString = "";
+  passwordStrength = "";
   backgroundSize = (passwordLength - maxLength) * 100 / (maxLength - minLength) + 100;
-  {
-    console.log(backgroundSize);
-  }
   return `<main class="${"svelte-179403w"}"><section class="${"svelte-179403w"}"><h2>Password Generator</h2>
         <div class="${"header svelte-179403w"}"><input type="${"text"}"${add_attribute("value", passwordString, 0)} class="${"svelte-179403w"}">
             <svg width="${"21"}" height="${"24"}" xmlns="${"http://www.w3.org/2000/svg"}" class="${"svelte-179403w"}"><path d="${"M20.341 3.091 17.909.659A2.25 2.25 0 0 0 16.319 0H8.25A2.25 2.25 0 0 0 6 2.25V4.5H2.25A2.25 2.25 0 0 0 0 6.75v15A2.25 2.25 0 0 0 2.25 24h10.5A2.25 2.25 0 0 0 15 21.75V19.5h3.75A2.25 2.25 0 0 0 21 17.25V4.682a2.25 2.25 0 0 0-.659-1.591ZM12.469 21.75H2.53a.281.281 0 0 1-.281-.281V7.03a.281.281 0 0 1 .281-.281H6v10.5a2.25 2.25 0 0 0 2.25 2.25h4.5v1.969a.282.282 0 0 1-.281.281Zm6-4.5H8.53a.281.281 0 0 1-.281-.281V2.53a.281.281 0 0 1 .281-.281H13.5v4.125c0 .621.504 1.125 1.125 1.125h4.125v9.469a.282.282 0 0 1-.281.281Zm.281-12h-3v-3h.451c.075 0 .147.03.2.082L18.667 4.6a.283.283 0 0 1 .082.199v.451Z"}" fill="${"#A4FFAF"}"></path></svg></div>

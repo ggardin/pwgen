@@ -5,12 +5,11 @@
     // Constants
     import { boxes } from "../constants/checkboxes";
     // Variables
-    let passwordLength = +0;
-    let maxLength = +20;
-    let minLength = +0;
-    let passwordString = "";
-    let passwordStrength = "";
-    $: console.log(backgroundSize);
+    $: passwordLength = 0;
+    $: maxLength = 20;
+    $: minLength = 0;
+    $: passwordString = "";
+    $: passwordStrength = "";
     // Reactive Values //
     $: backgroundSize =
         ((passwordLength - maxLength) * 100) / (maxLength - minLength) + 100;
@@ -53,19 +52,24 @@
             passwordString = "";
             // filter out unchecked types
             const typesCount = boxes.filter((box) => box.checked).length;
+            console.log(typesCount);
+            
             const typesArr = boxes
                 .filter((box) => box.checked)
                 .map((box) => box.id);
             // don't run if nothing is checked or if the length is 0
-            if (typesCount === 0 || passwordLength <= 0) {
+            if (typesCount === 0 || passwordLength  === 0) {
                 return "";
             }
-            // loop over the length and call the generator function for each type
-            for (let i = 0; i < passwordLength -1; i += typesCount) {
+            // loop over the length, call the function for each type that is checked and add the value to the password string
+            for (let i = 0; i <= passwordLength; i += typesCount) {
+                if(i >= passwordLength) {
+                    break;
+                }     
                 typesArr.forEach((type) => {
-                    const funcName = type;
-                    passwordString += randomFunc[funcName]();
-                });
+                    const funcName = randomFunc[type];
+                    passwordString += funcName();
+                });     
             }
             this.passwordStrength();
         },
