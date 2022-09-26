@@ -5,7 +5,7 @@ export const handler = init({
 	assets: new Set(["icon-arrow-right.svg","icon-check.svg","icon-copy.svg"]),
 	mimeTypes: {".svg":"image/svg+xml"},
 	_: {
-		entry: {"file":"_app/immutable/start-10727bf4.js","imports":["_app/immutable/start-10727bf4.js","_app/immutable/chunks/index-a722e2f6.js","_app/immutable/chunks/singletons-207f3cf1.js"],"stylesheets":[]},
+		entry: {"file":"_app/immutable/start-f5da4880.js","imports":["_app/immutable/start-f5da4880.js","_app/immutable/chunks/index-a722e2f6.js","_app/immutable/chunks/singletons-ceedcc16.js"],"stylesheets":[]},
 		nodes: [
 			() => import('../server/nodes/0.js'),
 			() => import('../server/nodes/1.js'),

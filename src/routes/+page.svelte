@@ -4,15 +4,16 @@
     import CheckBox from "$lib/CheckBox.svelte";
     // Constants
     import { boxes } from "../constants/checkboxes";
-    // Variables
+    // variables
+    let copied = false;
+    // Reactive Values //
+    $: backgroundSize =
+        ((passwordLength - maxLength) * 100) / (maxLength - minLength) + 100;
     $: passwordLength = +2;
     $: maxLength = +20;
     $: minLength = +0;
     $: passwordString = "";
     $: passwordStrength = "";
-    // Reactive Values //
-    $: backgroundSize =
-        ((passwordLength - maxLength) * 100) / (maxLength - minLength) + 100;
     // this function is the framework for the getrandomLower, upper .etc, to reduce markup
     const getRandomFunc = (min: any, max: any) => {
         return String.fromCharCode(Math.floor(Math.random() * min) + max);
@@ -34,7 +35,7 @@
         symbol: getRandomSymbol,
     };
 
-    let passwordGenerator = {
+let passwordGenerator = {
         // this'll remove and add a checked value to the checkbox
         CheckBox(index: string) {
             boxes.find((box) => {
@@ -54,8 +55,6 @@
             // filter out unchecked types
             const typesCount = boxes.filter((box) => box.checked).length;
             const typesArr = boxes.filter((box) => box.checked).map((box) => box.id);
-                console.log(typesArr);
-                console.log(boxes);
 
                 
             // don't run if nothing is checked or if the length is 0
@@ -84,7 +83,16 @@
         },
         // copy to clipboard
         copyToClipboard() {
+            if (passwordString.length !== 0) {
+                setTimeout(() => {
+                copied = false;
+            }, 1200);
+            } else {
+                return
+            }
             navigator.clipboard.writeText(passwordString);
+            copied = true;
+            
         },
     };
 
@@ -100,6 +108,19 @@
         text-align: center;
         @extend %w100;
         overflow: hidden;
+
+        .toast{
+            border: 2px solid $primaryColor;
+            width: 60%;
+            display: grid;
+            transform: translateX(-101%);
+            transition: transform .5s ease-in-out;
+            margin-top: 1rem;
+            color: $primaryColor;
+            &.active{
+                transform: translateX(35%);
+            }
+        }
 
         section {
            @extend %flexCol;
@@ -129,6 +150,7 @@
                 align-items: center;
                 padding: $primaryPadding;
                 background-color: $cardColor;
+                position: relative;
                 @extend %w100;
                 @include tablet{
                     height: 60px
@@ -157,6 +179,10 @@
                     }
                     @include laptop{
                         transform: scale(1.7);
+                    }
+                    &.disabled{
+                        opacity: 0.5;
+                        pointer-events: none;
                     }
                 }
             }
@@ -300,11 +326,14 @@
 
 
 <main>
+        <div class="toast" class:active={copied}>
+            <h1>password has been copied to clipboard</h1>
+        </div>
     <section>
         <h2>Password Generator</h2>
         <div class="header">
             <input type="text" value={passwordString}>
-            <svg width="21" height="24" on:click={passwordGenerator.copyToClipboard} xmlns="http://www.w3.org/2000/svg"><path d="M20.341 3.091 17.909.659A2.25 2.25 0 0 0 16.319 0H8.25A2.25 2.25 0 0 0 6 2.25V4.5H2.25A2.25 2.25 0 0 0 0 6.75v15A2.25 2.25 0 0 0 2.25 24h10.5A2.25 2.25 0 0 0 15 21.75V19.5h3.75A2.25 2.25 0 0 0 21 17.25V4.682a2.25 2.25 0 0 0-.659-1.591ZM12.469 21.75H2.53a.281.281 0 0 1-.281-.281V7.03a.281.281 0 0 1 .281-.281H6v10.5a2.25 2.25 0 0 0 2.25 2.25h4.5v1.969a.282.282 0 0 1-.281.281Zm6-4.5H8.53a.281.281 0 0 1-.281-.281V2.53a.281.281 0 0 1 .281-.281H13.5v4.125c0 .621.504 1.125 1.125 1.125h4.125v9.469a.282.282 0 0 1-.281.281Zm.281-12h-3v-3h.451c.075 0 .147.03.2.082L18.667 4.6a.283.283 0 0 1 .082.199v.451Z" fill="#A4FFAF"/></svg>
+            <svg width="21" class:disabled={copied || passwordString.length === 0} height="24" on:click={passwordGenerator.copyToClipboard} xmlns="http://www.w3.org/2000/svg"><path d="M20.341 3.091 17.909.659A2.25 2.25 0 0 0 16.319 0H8.25A2.25 2.25 0 0 0 6 2.25V4.5H2.25A2.25 2.25 0 0 0 0 6.75v15A2.25 2.25 0 0 0 2.25 24h10.5A2.25 2.25 0 0 0 15 21.75V19.5h3.75A2.25 2.25 0 0 0 21 17.25V4.682a2.25 2.25 0 0 0-.659-1.591ZM12.469 21.75H2.53a.281.281 0 0 1-.281-.281V7.03a.281.281 0 0 1 .281-.281H6v10.5a2.25 2.25 0 0 0 2.25 2.25h4.5v1.969a.282.282 0 0 1-.281.281Zm6-4.5H8.53a.281.281 0 0 1-.281-.281V2.53a.281.281 0 0 1 .281-.281H13.5v4.125c0 .621.504 1.125 1.125 1.125h4.125v9.469a.282.282 0 0 1-.281.281Zm.281-12h-3v-3h.451c.075 0 .147.03.2.082L18.667 4.6a.283.283 0 0 1 .082.199v.451Z" fill="#A4FFAF"/></svg>
         </div>
         <div class="settings">
             <div class="length">
