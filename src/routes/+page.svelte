@@ -86,7 +86,7 @@ let passwordGenerator = {
             if (passwordString.length !== 0) {
                 setTimeout(() => {
                 copied = false;
-            }, 1200);
+            }, 4000);
             } else {
                 return
             }
@@ -110,27 +110,31 @@ let passwordGenerator = {
         overflow: hidden;
 
         .toast{
-            border: 2px solid $primaryColor;
-            width: 60%;
             display: grid;
-            transform: translateX(-101%);
-            transition: transform .5s ease-in-out;
+            place-self: center;
             margin-top: 1rem;
+            border: 2px solid $primaryColor;;
+            transition: transform .5s ease-in-out;
             color: $primaryColor;
+            padding: 15px;
+            width: 310px;
+            transform: translatey(-15rem);
+            @include tablet{
+                width: max-content;
+            }
             &.active{
-                transform: translateX(35%);
+                transform: translateX(0)
             }
         }
 
         section {
            @extend %flexCol;
-            justify-content: center;
             align-items: center;
             margin: 0 auto;
             @extend %h100;
-            min-width: 300px;
-            max-width: 500px;
+            width: 85%;
             gap: 15px;
+            padding: .25rem;
             @include tablet{
                 min-width: 555px;
                 max-width: 725px;
@@ -142,7 +146,7 @@ let passwordGenerator = {
             }
             @include desktop{
                 min-width: 876px;
-                max-width: 1000px;
+                max-width: 900px;
             }
             .header {
                 @extend %flex;
@@ -327,7 +331,7 @@ let passwordGenerator = {
 
 <main>
         <div class="toast" class:active={copied}>
-            <h1>password has been copied to clipboard</h1>
+            <h2>Your password has been copied.</h2>
         </div>
     <section>
         <h2>Password Generator</h2>
