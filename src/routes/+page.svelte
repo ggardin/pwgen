@@ -4,8 +4,8 @@
     import CheckBox from "$lib/CheckBox.svelte";
     // Constants
     import { boxes } from "../constants/checkboxes";
-    // variables
-    let copied = false;
+
+	import "../app.css";
     // Reactive Values //
     $: backgroundSize =
         ((passwordLength - maxLength) * 100) / (maxLength - minLength) + 100;

@@ -1,0 +1,100 @@
+@font-face {
+	font-family: 'JetBrains Mono';
+	src: url('/fonts/jetbrains-mono.woff2') format('woff2'),
+		 url('/fonts/jetbrains-mono.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+:root {
+	--padding: 1rem;
+	--margin: var(--padding);
+	--container-w: 800px;
+	--radius: 8px;
+
+	--background: #1a1b1e;
+	--heading: #fff;
+	--text: #cdcdcd;
+	--accent: #167dff;
+	--accent-dark: #011425;
+	--muted: rgba(0,0,0,0.7);
+	--shade: rgba(0,0,0,0.2);
+
+	--neutral: #cdcdcd;
+	--weak: #bc4749;
+	--medium: #E0A458;
+	--strong: #386641;
+}
+
+* {
+	transition: all ease-in-out 0.3s;
+}
+
+body {
+	font-size: 1.5rem;
+	font-family: 'JetBrains Mono', monospace;
+	font-display: swap;
+	display: flex;
+	align-items: center;
+	padding: var(--padding);
+	background: var(--background);
+}
+
+main {
+	background: #fff;
+	width: 100%;
+	max-width: var(--container-w);
+	margin: 0 auto;
+	border-radius: var(--radius);
+	overflow: hidden;
+}
+
+section:not(:first-child) {
+	padding: var(--padding);
+}
+
+/* Josh's Custom CSS Reset */
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+* {
+	margin: 0;
+}
+html,
+body {
+	height: 100%;
+}
+body {
+	line-height: 1.5;
+	-webkit-font-smoothing: antialiased;
+}
+img,
+picture,
+video,
+canvas,
+svg {
+	display: block;
+	max-width: 100%;
+}
+input,
+button,
+textarea,
+select {
+	font: inherit;
+}
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	overflow-wrap: break-word;
+}
+#root,
+#__next {
+	isolation: isolate;
+}
