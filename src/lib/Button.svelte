@@ -1,45 +1,18 @@
-<style lang="scss">
-    @import "../scss/utils/index";
-    button{
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                border: 1px solid $primaryColor;
-                gap: 10px;
-                font-family: $primaryFont;
-                padding: 10px;
-                background-color: $primaryColor;
-                outline: none;
-                cursor: pointer;
-                transition: all .45s ease-in-out;
-                @include tablet{
-                    height: 50px;
-                    font-size: 1.15rem;
-                    gap: 13px;
-                }
-                @include laptop{
-                    height: 75px;
-                    font-size: 1.3rem;
-                    gap: 20px;
-                }
-                &:hover{
-                    background-color: transparent;
-                    color: $primaryColor;
-                    border: 1px solid $primaryColor;
-                    
-                    svg{
-                        stroke: $primaryColor;
-                    }
-                }
-                svg{
-                    @include tablet{
-                        transform: scale(1.3);
-                    }
-                    @include laptop{
-                        transform: scale(1.6);
-                    }
-                }
-            }
+<button on:click>
+	Generate & Copy
+</button>
+
+<style>
+
+	button {
+		width: 100%;
+		background-color: var(--accent);
+		padding: 0.75em 1.5em;
+		border-radius: var(--radius);
+		border: 0;
+		color: black;
+	}
+
 </style>
 
 

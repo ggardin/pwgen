@@ -12,62 +12,24 @@
     }
 </script>
 
-<style lang="scss">
-    @import "../scss/utils/index";
-    .filterBox {
-        display: flex;
-        justify-content: start;
-        align-items: center;
-        gap: 15px;
-        position: relative;
-        overflow: hidden;
+<div>
+	<input type="checkbox" {id} on:click={dispatchCheck} checked>
+	<label for="{id}">{text}</label>
+</div>
 
-        input[type="checkbox"]{
-            position: absolute;
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-       svg{
-            position: absolute;
-            transform: scale(.000000000005);
-            transition: all .7s ease;
+<style>
 
-            path{
-                stroke: black;
-            }
-        }
-    .checkbox{
-        display: flex;
-        width: 20px;
-        height: 20px;
-        border: 1px solid $primaryColor;
-        border-radius: 5px;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-        transition: all 1s ease .3s;
-        
-        &:hover {
-            background-color: $primaryColor;
-        }
-        &.checked{
-            background-color: $primaryColor;
-            border: 1px solid $primaryColor;
-            color: white;
-            
-            & svg{
-                transition: all .7s ease-in-out .4s;
-                transform: scale(1.3);
-            }
-        }
-    }    
+	input {
+		height: 1em;
+		width: 1em;
+	}
 
-    label{
-        color: white;
-    }
-    }
-    
+	label {
+		-webkit-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+	}
+
 </style>
 
 <div class="filterBox">
