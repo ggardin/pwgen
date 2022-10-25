@@ -1,5 +1,7 @@
 # Password Generator
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/fcfc27b8-a2d1-47ff-9e77-818adf0969b3/deploy-status)](https://app.netlify.com/sites/sveltepass/deploys)
+
 I'm aware this project could have been titled *YAPG* (Yet Another Password Generator). I built it because I need a password generator that:
 
 1. is fast.
