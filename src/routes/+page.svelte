@@ -249,6 +249,10 @@
 		line-height: 2em;
 		background-color: aliceblue;
 		color: black;
+		max-width: var(--container-w);
+		margin: 0 auto;
+		text-align: center;
+		line-height: 1.1;
 	}
 
 	.toast.active {
