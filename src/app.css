@@ -4,6 +4,7 @@
 		 url('/fonts/jetbrains-mono.woff') format('woff');
 	font-weight: normal;
 	font-style: normal;
+	font-display: swap;
 }
 
 :root {
