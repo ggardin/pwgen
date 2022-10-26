@@ -1,4 +1,4 @@
-<button on:click>
+<button on:click aria-label="Generate password and copy">
 	Generate & Copy
 </button>
 
