@@ -152,9 +152,9 @@
 			on:click={passwordGenerator.copyToClipboard}
 		/>
 	</section>
-	<span class="toast" class:active={copied}>
+	<p class="toast" class:active={copied}>
 		Your {passwordStrength} password has been copied.
-	</span>	
+	</p>
 </main>
 
 <style>
