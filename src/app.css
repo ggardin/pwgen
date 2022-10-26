@@ -27,13 +27,15 @@
 }
 
 * {
+	margin: 0;
 	transition: all ease-in-out 0.3s;
 }
 
 body {
-	font-size: 1.5rem;
 	font-family: 'JetBrains Mono', monospace;
-	font-display: swap;
+	font-size: 1.5rem;
+	line-height: 1.5;
+	-webkit-font-smoothing: antialiased;
 	display: flex;
 	align-items: center;
 	padding: var(--padding);
@@ -60,21 +62,12 @@ section:not(:first-child) {
 *::after {
 	box-sizing: border-box;
 }
-* {
-	margin: 0;
-}
 html,
 body {
 	height: 100%;
 }
-body {
-	line-height: 1.5;
-	-webkit-font-smoothing: antialiased;
-}
 img,
 picture,
-video,
-canvas,
 svg {
 	display: block;
 	max-width: 100%;
