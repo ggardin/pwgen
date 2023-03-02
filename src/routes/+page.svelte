@@ -2,7 +2,7 @@
 	import Button from "$lib/Button.svelte";
 	import CheckBox from "$lib/CheckBox.svelte";
 	import Header from "$lib/Header.svelte";
-	
+
 	import { boxes } from "../constants/checkboxes";
 
 	import "../app.css";
@@ -111,6 +111,7 @@
 				on:click={passwordGenerator.copyToClipboard}
 				on:keypress={passwordGenerator.copyToClipboard}
 				aria-label="Copy password"
+				tabindex="0"
 				>
 				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect width="13" height="13" x="9" y="9" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
 				</button>
@@ -118,6 +119,24 @@
 		</div>
 	</section>
 	<section class="settings">
+		<Button
+			on:click={() =>
+				passwordGenerator.generatePassword(
+					getRandomUpper,
+					getRandomLower,
+					getRandomNumber,
+					getRandomSymbol
+				)}
+			on:click={passwordGenerator.copyToClipboard}
+		/>
+		<div class="filter">
+			{#each boxes as box, i (box.id)}
+			<CheckBox
+			{...box}
+			on:checked={() => passwordGenerator.CheckBox(box.id)}
+			/>
+			{/each}
+		</div>
 		<div class="length">
 			<span>Length ({passwordLength})</span>
 			<input
@@ -132,26 +151,10 @@
 						getRandomNumber,
 						getRandomSymbol
 					)}
+			aria-label="Password length"
+			tabindex="0"
 			/>
 		</div>
-		<div class="filter">
-			{#each boxes as box, i (box.id)}
-			<CheckBox
-			{...box}
-			on:checked={() => passwordGenerator.CheckBox(box.id)}
-				/>
-			{/each}
-		</div>
-		<Button
-			on:click={() =>
-				passwordGenerator.generatePassword(
-					getRandomUpper,
-					getRandomLower,
-					getRandomNumber,
-					getRandomSymbol
-				)}
-			aria-label="Password length"
-		/>
 	</section>
 	<p class="toast" class:active={copied}>
 		Your {passwordStrength} password has been copied.
@@ -171,6 +174,7 @@
 		color: var(--muted);
 		background-color: var(--bg);
 		border-bottom: 1px solid var(--shade);
+		transition: var(--default-transition);
 	}
 	.masthead.weak {
 		--bg: #bc4749;
@@ -203,18 +207,19 @@
 		z-index: 5;
 		height: 100%;
 		width: 8em;
+		display: flex;
+		align-items: center;
+		flex-direction: row-reverse;
+		padding-right: var(--padding);
 		background: linear-gradient(270deg, var(--bg) 20%, rgba(255,255,255,0) 100%);
 	}
 	.masthead button {
-		position: absolute;
-		right: var(--padding);
-		height: 100%;
 		border: none;
 		background: transparent;
 	}
 	.masthead button > svg {
-		width: 1em;
-		height: 1em;
+		width: 1.1em;
+		height: 1.1em;
 		fill: none;
 		stroke: var(--muted);
 		stroke-linecap: round;
@@ -226,7 +231,9 @@
 		display: flex;
 		flex-direction: column;
 	}
-
+	.length input {
+		cursor: ew-resize;
+	}
 	.length span {
 		text-transform: uppercase;
 		letter-spacing: 0.2px;
@@ -240,7 +247,6 @@
 	}
 
 	.toast {
-		opacity: 0;
 		position: absolute;
 		left: var(--padding);
 		right: var(--padding);
@@ -250,14 +256,19 @@
 		line-height: 2em;
 		background-color: aliceblue;
 		color: black;
+		width: fit-content;
 		max-width: var(--container-w);
 		margin: 0 auto;
+		padding: 0 1em;
 		text-align: center;
-		line-height: 1.1;
+		opacity: 0;
+		transform: scale(0) translateY(-3em);
+		transition: var(--default-transition);
 	}
 
 	.toast.active {
 		opacity: 1;
+		transform: scale(1) translateY(0);
 		top: var(--padding);
 	}
 
