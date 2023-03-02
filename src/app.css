@@ -13,6 +13,8 @@
 	--container-w: 800px;
 	--radius: 8px;
 
+	--default-transition: all ease-in-out 0.3s;
+
 	--background: #1a1b1e;
 	--heading: #fff;
 	--text: #cdcdcd;
@@ -29,7 +31,6 @@
 
 * {
 	margin: 0;
-	transition: all ease-in-out 0.3s;
 }
 
 body {
