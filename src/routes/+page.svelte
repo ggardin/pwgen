@@ -129,7 +129,7 @@
 				)}
 			on:click={passwordGenerator.copyToClipboard}
 		/>
-		<div class="filter">
+		<div class="filters">
 			{#each boxes as box, i (box.id)}
 			<CheckBox
 			{...box}
@@ -240,7 +240,7 @@
 		font-size: 1rem;
 	}
 
-	.filter {
+	.filters {
 		display: flex;
 		gap: 1em;
 		flex-wrap: wrap;
@@ -252,8 +252,6 @@
 		right: var(--padding);
 		border-radius: 1em;
 		top: -2em;
-		height: 2em;
-		line-height: 2em;
 		background-color: aliceblue;
 		color: black;
 		width: fit-content;

@@ -21,6 +21,12 @@
 
 <style>
 
+	div {
+		display: flex;
+		gap: 0.5em;
+		align-items: center;
+	}
+
 	input {
 		height: 1em;
 		width: 1em;
