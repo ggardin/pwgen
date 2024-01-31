@@ -12,4 +12,4 @@ I'm aware this project could have been titled *YAPG* (Yet Another Password Gener
 
 ## Implementation details
 
-The project is based on [Bradley-H](https://github.com/Bradley-H/passwordGenerator)'s work and is powered by SvelteKit.
+The project is based on [Bradley-H](https://github.com/Bradley-H/passwordGen)'s work and is powered by SvelteKit.
